@@ -1,4 +1,4 @@
-package com.unit.test.find.near.by.truck.service;
+package com.unit.test.rv.service;
 
 
-public class FindNearByServiceTest {}
+public class RobotServiceTest {}

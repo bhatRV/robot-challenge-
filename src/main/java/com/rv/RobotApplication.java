@@ -1,4 +1,4 @@
-package com.rv.microsoft.find.near.by.truck;
+package com.rv;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

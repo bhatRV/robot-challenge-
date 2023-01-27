@@ -1,4 +1,4 @@
-package com.rv.microsoft.find.near.by.truck.exception;
+package com.rv.exception;
 
 public class SimulationException extends RuntimeException {
 

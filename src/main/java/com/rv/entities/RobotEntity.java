@@ -1,10 +1,16 @@
-package com.rv.microsoft.find.near.by.truck.entities;
+package com.rv.entities;
+
+import lombok.Data;
+
 
 /**
  * @author :rashmi
- * This is the Entity object for Storing Truck's Location
+ * This is the Entity object for Storing Robots Location
  */
+
+@Data
 public class RobotEntity  {
+    private Position position;
 
 }
 

@@ -1,4 +1,4 @@
-package com.rv.microsoft.find.near.by.truck.config;
+package com.rv.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
