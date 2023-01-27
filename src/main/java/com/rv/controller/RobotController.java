@@ -5,14 +5,12 @@ import com.rv.service.RobotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author  rashmi
  */
+@RestController
 public class RobotController {
 
     @Autowired
@@ -24,7 +22,7 @@ public class RobotController {
      * @param position
      * @return ResponseEntity<String>
      */
-    @PutMapping("/place")
+    @PostMapping("/place")
     public ResponseEntity<String> place(@RequestBody Position position) {
 
         try {

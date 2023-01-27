@@ -40,7 +40,7 @@ public class RobotService {
     public String report() throws IllegalArgumentException {
 
         // Validate robot location
-        //Position.validate();
+        Position.validate(robotEntity.getPosition(),grid);
 
         String reportStr = "Robot is at " + robotEntity.getPosition().getXCordinate() + "," + robotEntity.getPosition().getYCordinate() + ","
                 + robotEntity.getPosition().getDirectionEnum();

@@ -41,11 +41,12 @@ Run as application in intelliJ "RobotApplication.java"
 4. Default port will be tomcat's default port -8080
 5.uses internal cache for storing the data. Can be enhanced to use H2
 
-## SCOPE for ENHANCEMENT
+## Scope for Enhancements
 
 
 
 ## Technical Notes
+Below are some details on technical aspects of the project and few learnings.
 ### Development approach
 
 ### Testing
