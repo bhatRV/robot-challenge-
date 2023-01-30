@@ -53,7 +53,6 @@ Run as application in intelliJ "RobotApplication.java"
 
 ## Technical Notes
 Below are some details on technical aspects of the project and few learnings.
-### Development approach
 
 ### Testing
 Unit tests
