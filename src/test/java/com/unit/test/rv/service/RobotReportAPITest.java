@@ -5,8 +5,7 @@ import com.rv.entities.Position;
 import com.rv.entities.RobotEntity;
 import com.rv.entities.TableDimention;
 import com.rv.service.RobotService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -18,8 +17,10 @@ import static com.rv.util.Constants.POSITION_IS_NOT_INITIALIZED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,classes = RobotApplication.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = RobotApplication.class)
 @ActiveProfiles("test")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
 public class RobotReportAPITest {
 
     @Autowired
@@ -42,6 +43,7 @@ public class RobotReportAPITest {
     }
 
     @Test
+    @Order(1)
     public void shouldThrowErrorWhenPositionIsNullForReportAPICall() {
         // Assertion
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -52,7 +54,7 @@ public class RobotReportAPITest {
     }
 
     @Test
-    public void shouldGetSuccessWhenPositionIsInitializedForReportAPICall() {
+    public void shouldReturnSuccessWhenPositionIsInitializedForReportAPICall() {
         //place
         robotService.place(new Position(2, 2, EAST));
 
@@ -63,7 +65,6 @@ public class RobotReportAPITest {
         assertEquals("Robot is at 2,2,EAST", reponse);
 
     }
-
 
 
 }

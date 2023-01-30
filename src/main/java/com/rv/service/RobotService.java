@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static com.rv.util.Constants.ERROR_MSG_OUT_OF_BOUNDRY;
+import static com.rv.util.Constants.INVALID_DIRECTION_VALUE;
+import static io.vavr.API.*;
 
 @Service
 @Slf4j
@@ -22,7 +24,7 @@ public class RobotService {
 
 
     /**
-     * Handle "PLACE" command.
+     * Initial "PLACE" command to initialize the position of the Robot on a table/Grid
      *
      * @throws IllegalArgumentException
      */
@@ -33,9 +35,10 @@ public class RobotService {
 
 
     /**
-     * Handle "REPORT" command.
+     * Generate "REPORT" command.
+     * This provides a final report of the Robot position
      *
-     * @return The location of the robot and obstacle (if any)
+     * @return location of the robot
      * @throws IllegalArgumentException
      */
     public String report() throws IllegalArgumentException {
@@ -49,9 +52,10 @@ public class RobotService {
 
 
     /**
-     * Handle "MOVE" command.
+     * Execute "MOVE" command.
+     * This method is used to Move the Robot by 1 position forward
      *
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException: in case invalid values
      */
     public void move() throws IllegalArgumentException {
         Position.validate(robotEntity.getPosition(), grid);
@@ -60,7 +64,7 @@ public class RobotService {
         int yCordn = robotEntity.getPosition().getYCordinate();
         DirectionFacingEnum direction = robotEntity.getPosition().getDirectionEnum();
 
-        validateWithMove(xCordn,yCordn,direction);
+        validateWithMove(xCordn, yCordn, direction);
 
         if (direction.equals(direction.EAST)) {
             robotEntity.getPosition().setXCordinate(xCordn + 1);
@@ -74,57 +78,52 @@ public class RobotService {
     }
 
     /**
-     * Handle "LEFT" command.
+     * Execute "LEFT" command.
+     * This method is used to Change the direction of the Robot to it's Left
      *
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException: in case invalid values
      */
     public void left() throws IllegalArgumentException {
         Position.validate(robotEntity.getPosition(), grid);
 
-        int xCordn = robotEntity.getPosition().getXCordinate();
-        int yCordn = robotEntity.getPosition().getYCordinate();
         DirectionFacingEnum direction = robotEntity.getPosition().getDirectionEnum();
 
-        validateWithMove(xCordn,yCordn,direction);
+        DirectionFacingEnum resultDirection = Match(direction).of(
+                Case($(DirectionFacingEnum.EAST), DirectionFacingEnum.NORTH),
+                Case($(DirectionFacingEnum.SOUTH), DirectionFacingEnum.EAST),
+                Case($(DirectionFacingEnum.WEST), DirectionFacingEnum.SOUTH),
+                Case($(DirectionFacingEnum.NORTH), DirectionFacingEnum.WEST)
+        );
 
-        if (direction.equals(DirectionFacingEnum.EAST)) {
-            robotEntity.getPosition().setDirectionEnum(DirectionFacingEnum.NORTH);
-        } else if (direction.equals(DirectionFacingEnum.SOUTH)) {
-            robotEntity.getPosition().setDirectionEnum(DirectionFacingEnum.EAST);
-        } else if (direction.equals(DirectionFacingEnum.WEST)) {
-            robotEntity.getPosition().setDirectionEnum(DirectionFacingEnum.SOUTH);
-        } else if (direction.equals(DirectionFacingEnum.NORTH)) {
-            robotEntity.getPosition().setDirectionEnum(DirectionFacingEnum.WEST);
-        }
+        robotEntity.getPosition().setDirectionEnum(resultDirection);
     }
 
     /**
-     * Handle "RIGHT" command.
+     * Execute "RIGHT" command.
+     * This method is used to Change the direction of the Robot to it's right
      *
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException: in case invalid values
      */
     public void right() throws IllegalArgumentException {
         Position.validate(robotEntity.getPosition(), grid);
 
-        int xCordn = robotEntity.getPosition().getXCordinate();
-        int yCordn = robotEntity.getPosition().getYCordinate();
         DirectionFacingEnum direction = robotEntity.getPosition().getDirectionEnum();
 
-        validateWithMove(xCordn,yCordn,direction);
+        DirectionFacingEnum resultDirection = Match(direction).of(
+                Case($(DirectionFacingEnum.EAST), DirectionFacingEnum.SOUTH),
+                Case($(DirectionFacingEnum.SOUTH), DirectionFacingEnum.WEST),
+                Case($(DirectionFacingEnum.WEST), DirectionFacingEnum.NORTH),
+                Case($(DirectionFacingEnum.NORTH), DirectionFacingEnum.EAST)
+        );
 
-    if (direction.equals(DirectionFacingEnum.EAST)) {
-            robotEntity.getPosition().setDirectionEnum(DirectionFacingEnum.SOUTH);
-        } else if (direction.equals(DirectionFacingEnum.SOUTH)) {
-            robotEntity.getPosition().setDirectionEnum(DirectionFacingEnum.WEST);
-        } else if (direction.equals(DirectionFacingEnum.WEST)) {
-            robotEntity.getPosition().setDirectionEnum(DirectionFacingEnum.NORTH);
-        } else if (direction.equals(DirectionFacingEnum.NORTH)) {
-            robotEntity.getPosition().setDirectionEnum(DirectionFacingEnum.EAST);
-        }
+        robotEntity.getPosition().setDirectionEnum(resultDirection);
+
     }
 
 
     private void validateWithMove(int xCordn, int yCordin, DirectionFacingEnum currentDirection) {
+
+
         switch (currentDirection) {
             case EAST:
                 if (xCordn + 1 > grid.getWidth()) {
@@ -150,6 +149,10 @@ public class RobotService {
                     throw new IllegalArgumentException(ERROR_MSG_OUT_OF_BOUNDRY);
                 }
                 break;
+            default:
+                //should never come here.
+                log.error("Invalid Direction Provided");
+                throw new IllegalArgumentException(INVALID_DIRECTION_VALUE);
         }
     }
 }

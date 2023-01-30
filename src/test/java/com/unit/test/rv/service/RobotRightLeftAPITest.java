@@ -16,7 +16,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import static com.rv.entities.DirectionFacingEnum.EAST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,classes = RobotApplication.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = RobotApplication.class)
 @ActiveProfiles("test")
 public class RobotRightLeftAPITest {
 
@@ -38,7 +38,6 @@ public class RobotRightLeftAPITest {
         grid.setWidth(5);
         grid.setHeight(5);
     }
-
 
 
     @Test
@@ -66,7 +65,6 @@ public class RobotRightLeftAPITest {
         assertEquals("Robot is at 2,2,SOUTH", robotService.report());
 
     }
-
 
 
 }

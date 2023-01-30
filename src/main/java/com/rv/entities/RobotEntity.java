@@ -9,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class RobotEntity  {
+public class RobotEntity {
     private Position position;
 
 }

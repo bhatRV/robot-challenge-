@@ -16,24 +16,25 @@ configurations {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
     implementation('io.springfox:springfox-swagger2:3.0.0')
     implementation('io.springfox:springfox-swagger-ui:3.0.0')
-
     implementation('org.springframework.boot:spring-boot-starter-parent:2.2.5.RELEASE')
     implementation 'org.springframework.boot:spring-boot-starter:2.2.5.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.2.5.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.2.5.RELEASE'
-
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.2.5.RELEASE'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
 
+    implementation('io.vavr:vavr:0.10.0')
     compileOnly 'org.projectlombok:lombok:1.18.20'
+
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+
 
 }
 

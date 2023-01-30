@@ -22,7 +22,7 @@ import static com.rv.util.Constants.POSITION_IS_NOT_INITIALIZED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,classes = RobotApplication.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = RobotApplication.class)
 @ActiveProfiles("test")
 public class RobertPlaceAPITest {
 
@@ -83,6 +83,18 @@ public class RobertPlaceAPITest {
     }
 
     @ParameterizedTest
+    @ValueSource(ints = {0, 1, 2, 3, 4, 5})
+    public void shouldPlaceItRight(int y) {
+        // Actual result
+        robotService.place(new Position(2, y, EAST));
+
+        // Assertion
+        assertEquals(2, robotEntity.getPosition().getXCordinate());
+        assertEquals(y, robotEntity.getPosition().getYCordinate());
+        assertEquals(EAST, robotEntity.getPosition().getDirectionEnum());
+    }
+
+    @ParameterizedTest
     @ValueSource(ints = {-1, -2})
     public void shouldThrowErrorIfInput_X_CoardinateIsOutOfBound(int x) {
         // Assertion
@@ -94,7 +106,7 @@ public class RobertPlaceAPITest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { -1, -2})
+    @ValueSource(ints = {-1, -2})
     public void shouldThrowErrorIfInput_Y_CoardinateIsOutOfBound(int y) {
         // Assertion
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -113,8 +125,6 @@ public class RobertPlaceAPITest {
 
         assertEquals(POSITION_IS_NOT_INITIALIZED, exception.getMessage());
     }
-
-
 
 
 }

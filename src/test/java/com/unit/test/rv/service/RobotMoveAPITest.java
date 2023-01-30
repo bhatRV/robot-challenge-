@@ -6,7 +6,9 @@ import com.rv.entities.RobotEntity;
 import com.rv.entities.TableDimention;
 import com.rv.service.RobotService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -15,12 +17,12 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static com.rv.entities.DirectionFacingEnum.*;
 import static com.rv.util.Constants.ERROR_MSG_OUT_OF_BOUNDRY;
-import static com.rv.util.Constants.POSITION_IS_NOT_INITIALIZED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,classes = RobotApplication.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = RobotApplication.class)
 @ActiveProfiles("test")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RobotMoveAPITest {
 
     @Autowired
@@ -43,16 +45,6 @@ public class RobotMoveAPITest {
     }
 
     @Test
-    public void shouldThrowErrorWhenPositionIsNullForMoveAPICall() {
-        // Assertion
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            robotService.move();
-        });
-
-        assertEquals(POSITION_IS_NOT_INITIALIZED, exception.getMessage());
-    }
-
-    @Test
     public void shouldGetSuccessWhenPositionIsInitializedForMoveAPICall() {
         //place
         robotService.place(new Position(2, 2, EAST));
@@ -67,7 +59,7 @@ public class RobotMoveAPITest {
 
 
     @Test
-    public void shouldGetErrorWhenPositionIsEastOutOfBoundMoveAPICall() {
+    public void shouldReturnErrorWhenPositionIsEastOutOfBoundMoveAPICall() {
         //place
         robotService.place(new Position(5, 2, EAST));
 

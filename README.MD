@@ -59,5 +59,33 @@ Below are some details on technical aspects of the project and few learnings.
 Unit tests
 Can be improved to include component,blackbox etc.
 
+#### Screenshot of Test Execution
+
+![Screenshot of Test Execution](testcases_view.png)
+
+#### Sample postman
+
+![Screenshot of Postman Execution](sample_postman.png)
 
 
+#### Sample Curl commands
+1. **PLACE**
+`   _curl --location --request POST 'http://localhost:8080/post' \
+   --header 'Content-Type: application/json' \
+   --data-raw '{
+   "xCordinate" : 4,
+   "yCordinate" : 4,
+   "directionEnum" : "EAST"
+   }'`_
+
+
+
+
+2. **MOVE**
+  ` _curl --location --request POST 'http://localhost:8080/move' \
+   --header 'Content-Type: application/json' \
+   --data-raw '{
+   "xCordinate" : 4,
+   "yCordinate" : 4,
+   "directionEnum" : "EAST"
+   }'_`

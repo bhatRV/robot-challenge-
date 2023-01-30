@@ -22,7 +22,7 @@ import static com.rv.util.Constants.POSITION_IS_NOT_INITIALIZED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,classes = RobotApplication.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = RobotApplication.class)
 @ActiveProfiles("test")
 public class RobotSimulationTest {
 
@@ -94,7 +94,7 @@ public class RobotSimulationTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { -1, -2})
+    @ValueSource(ints = {-1, -2})
     public void shouldThrowErrorIfInput_Y_CoardinateIsOutOfBound(int y) {
         // Assertion
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -115,16 +115,6 @@ public class RobotSimulationTest {
     }
 
     //TEST CASES FOR REPORT
-
-    @Test
-    public void shouldThrowErrorWhenPositionIsNullForReportAPICall() {
-        // Assertion
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            robotService.report();
-        });
-
-        assertEquals(POSITION_IS_NOT_INITIALIZED, exception.getMessage());
-    }
 
     @Test
     public void shouldGetSuccessWhenPositionIsInitializedForReportAPICall() {
