@@ -70,22 +70,18 @@ Can be improved to include component,blackbox etc.
 
 #### Sample Curl commands
 1. **PLACE**
-`   _curl --location --request POST 'http://localhost:8080/post' \
+
+    curl --location --request POST 'http://localhost:8080/post' \
    --header 'Content-Type: application/json' \
    --data-raw '{
    "xCordinate" : 4,
    "yCordinate" : 4,
    "directionEnum" : "EAST"
-   }'`_
+   }'
 
 
 
 
 2. **MOVE**
-  ` _curl --location --request POST 'http://localhost:8080/move' \
-   --header 'Content-Type: application/json' \
-   --data-raw '{
-   "xCordinate" : 4,
-   "yCordinate" : 4,
-   "directionEnum" : "EAST"
-   }'_`
+
+     curl --location --request POST 'http://localhost:8080/move
